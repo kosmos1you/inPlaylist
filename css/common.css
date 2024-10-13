@@ -1,0 +1,37 @@
+.button {
+    color: #121212;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    padding: 7px 36px;
+    border-radius: 4px;
+    background: #F6BD41;
+    text-align: center;
+    transition: background, color 0.3s ease 0s;
+}
+
+.button:hover {
+    background: #face7c;
+}
+
+.button-transparent {
+    border: 1px solid #F6BD41;
+    background-color: transparent;
+    color: #F6BD41;
+}
+
+.button-transparent:hover {
+    background: #F6BD41;
+    color: #121212;
+}
+
+.button-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.title {
+    color: #FFF;
+    font-size: 30px;
+    font-weight: 700;
+}
