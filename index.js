@@ -8,12 +8,12 @@ const liba = {
         return element;
     }
 }
-
 // DATA
 const playlists = [
     {
         id: 1,
         title: 'Hip-Hop Hits',
+        coverImage:'img/cardImage/image1.jpeg',
         tracks: [
             {
                 artist: 'Eminem',
@@ -34,6 +34,7 @@ const playlists = [
     {
         id: 2,
         title: 'Rap Hits 1990s',
+        coverImage:'img/cardImage/image2.jpeg',
         tracks: [
             {
                 artist: 'Public Enemy',
@@ -45,60 +46,111 @@ const playlists = [
         ]
     }
 ]
-
 // RENDER
-const root = document.getElementById('root')
-const playlistsElement = PlaylistsComponent(playlists)
-root.append(playlistsElement)
-
+const root = document.getElementById('root');
+root.append(PlaylistsWrapper());
 
 // components
+function PlaylistsWrapper(){
+    const classes = ['App']
+    const element = liba.create('div', classes);
+   // PlaylistsWrapper.append(PlaylistsHeader());
+    element.append(PlaylistsHeader(),PlaylistMain());
+    return element;
+};
+function PlaylistsHeader(){
+    const element = liba.create('header');
+    element.append(PlaylistsHeaderContainer());
+    return element;
+}
+function PlaylistsHeaderContainer(){
+    const classes = ['header-container'];
+    const element = liba.create('div',classes);
+
+    const PlaylistsHeaderImage = document.createElement('img');
+    PlaylistsHeaderImage.src = 'img/logo/logo.svg';
+    PlaylistsHeaderImage.setAttribute('alt', 'logo');
+    const headerName = liba.create('div',['logo-name']);
+    headerName.innerText = 'InPlayer';
+
+    
+    element.append(PlaylistsHeaderImage,headerName);
+    return element;
+}
+function PlaylistMain(){
+    const element = liba.create('main');
+    element.append(AddPlaylistPanel(),PlaylistsComponent(playlists));
+    return element;
+
+}
+function AddPlaylistPanel() {
+    const element = liba.create('div',['add-playlist-panel']);
+    const PlaylistPanelH1 = liba.create('h1',['title']);
+    PlaylistPanelH1.innerText = 'My playlists';
+    
+    const PlaylistPanelButton = liba.create('button',['button']);
+    PlaylistPanelButton.innerText = 'Add Playlist';
+    element.append(PlaylistPanelH1,PlaylistPanelButton);
+    return element;
+}
 
 function PlaylistsComponent(inputPlaylists) {
-    const element = document.createElement('div');
-
+   
+    const element = liba.create('div',['playlists']);
+    
     for (let i = 0; i < inputPlaylists.length; i++) {
         const playlist = inputPlaylists[i];
         element.append(PlaylistComponent(playlist))
     }
-
     return element;
+    
 }
+
+
 
 function PlaylistComponent(inputPlaylist) {
     const classes = ['playlist']
+
     
     if (inputPlaylist.isActive) {
         classes.push('active')
     }
-    
     const element = liba.create('div', classes);
-
     // todo: split into PlaylistTitleComponent
-    const playlistTitleElement = document.createElement('h2');
-    playlistTitleElement.append(inputPlaylist.title)
+    const playlistInfo = liba.create('div', ['playlist-info']);
 
-    element.append(playlistTitleElement)
+    const playlistInfoImage = liba.create('img', ['playlist-cover-image']);
+    playlistInfoImage.src = inputPlaylist.coverImage
+    playlistInfoImage.setAttribute('alt', inputPlaylist.title);
+    
+    const  playlistInfoContainer = liba.create('div')
+    const playlistTitleElement = liba.create('h2', ['title']);
 
-    element.append(TracksComponent(inputPlaylist.tracks))
+    playlistTitleElement.append(inputPlaylist.title);
 
+    playlistInfoContainer.append(playlistTitleElement);
+  
+    playlistInfo.append(playlistInfoImage,playlistInfoContainer);
+
+    element.append(playlistInfo);
+    element.append(TracksComponent(inputPlaylist.tracks));
+   
     return element;
 }
 
 function TracksComponent(inputTracks) {
+    console.log('hello');
     const element = document.createElement('ul');
 
     for (let j = 0; j < inputTracks.length; j++) {
         const track = inputTracks[j];
 
         const trackElement = TrackComponent(track);
-
-        element.append(trackElement)
+        element.append(trackElement);
     }
 
     return element
 }
-
 function TrackComponent(inputTrack) {
     // create
     const element = document.createElement('li');
@@ -113,7 +165,6 @@ function TrackComponent(inputTrack) {
     // return
     return element;
 }
-
 function TrackImageComponent(inputImageSource) {
     const element = document.createElement('img');
     element.src = inputImageSource;
@@ -130,100 +181,7 @@ function TrackTitleComponent(inputTrack) {
 }
 
 
-/*OLD CODE 
-/*
-const playlists = [
-    {
-        id: 1,
-        title: 'Hip-Hop Hits',
-        tracks: [
-            {
-                artist: 'Eminem',
-                title: 'Rap Cod',
-                isHot: true,
-                imageSource: '/img/cardImage/trackList/track1.jpeg',
-                track: 'audio/Eminem - Rap God.mp3',
-            },
-            {
-                artist: '50 cent',
-                title: 'In da Club',
-                isHot: false,
-                imageSource: '/img/cardImage/trackList/track2.jpeg',
-                track: 'audio/50cent - In da club.mp3',
-            },
-        ]
-    },
-    {
-        id: 2,
-        title: 'Rap Hits 1990s',
-        tracks: [
-            {
-                artist: 'Public Enemy',
-                title: 'Fight the Power',
-                isHot: true,
-                imageSource: '/img/cardImage/trackList/track3.jpeg',
-                track: 'audio/50cent - In da club.mp3',
-            },
-        ]
-    }
-]
 
-// RENDER
-const root = document.getElementById('root');
 
-for (let i = 0; i < playlists.length; i++) {
-    const playlist = playlists[i];
 
-    const playlistElement = document.createElement('div');
 
-    const playlistTitleElement = document.createElement('h2');
-    playlistTitleElement.append(playlist.title);
-
-    playlistElement.append(playlistTitleElement);
-
-    playlistElement.append(TracksComponent(playlist.tracks));
-
-    root.append(playlistElement);
-}
-function TracksComponent(inputTracks) {
-    const element = document.createElement('ul');
-
-    for (let j = 0; j < inputTracks.length; j++) {
-        const track = inputTracks[j];
-
-        const trackElement = TrackComponent(track);
-
-        element.append(trackElement)
-    }
-
-    return element
-}
-// createTrackElement
-function TrackComponent(inputTrack) {
-    // create
-    const element = document.createElement('li');
-       
-    // add data
-    element.append(
-        TrackImageComponent(inputTrack.imageSource),
-        TrackTitleComponent(inputTrack)
-    )
-
-    // return
-    return element;
-}
-function TrackImageComponent(inputImageSource) {
-    const element = document.createElement('img');
-    element.src = inputImageSource;
-    return element;
-}
-function TrackAudioComponent(inputAudioElement) {
-    const element = document.createElement('audio');
-    element.src = inputAudioElement;
-    element.setAttribute('controls', ' ');
-    return element;
-}
-function TrackTitleComponent(inputTrackTitle) {
-    return inputTrackTitle.artist + ' - ' + inputTrack.title;
-} 
-*/
