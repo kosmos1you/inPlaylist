@@ -93,7 +93,6 @@ function AddPlaylistPanel() {
     element.append(PlaylistPanelH1,PlaylistPanelButton);
     return element;
 }
-
 function PlaylistsComponent(inputPlaylists) {
    
     const element = liba.create('div',['playlists']);
@@ -105,13 +104,8 @@ function PlaylistsComponent(inputPlaylists) {
     return element;
     
 }
-
-
-
 function PlaylistComponent(inputPlaylist) {
     const classes = ['playlist']
-
-    
     if (inputPlaylist.isActive) {
         classes.push('active')
     }
@@ -123,24 +117,42 @@ function PlaylistComponent(inputPlaylist) {
     playlistInfoImage.src = inputPlaylist.coverImage
     playlistInfoImage.setAttribute('alt', inputPlaylist.title);
     
-    const  playlistInfoContainer = liba.create('div')
+    const playlistInfoContainer = liba.create('div')
     const playlistTitleElement = liba.create('h2', ['title']);
+    //const playlistCountElement = liba.create('div', ['buttons-container']);
 
+    const playlistbuttonElement = liba.create('div', ['buttons-container']);
+    const playlistbuttonEditElement = liba.create('button');
+    const playlistbuttonDeleteElement = liba.create('button');
     playlistTitleElement.append(inputPlaylist.title);
 
+    const playlistbuttonEditIconElement = liba.create('img', ['button-icon']);
+    playlistbuttonEditIconElement.src = 'img/icons/edit.svg';
+    playlistbuttonEditIconElement.setAttribute('alt', 'edit');
+    playlistbuttonEditElement.append(playlistbuttonEditIconElement);
+
+    const playlistbuttonDeleteIconElement = liba.create('img', ['button-icon']);
+    playlistbuttonDeleteIconElement.src = 'img/icons/basket.svg';
+    playlistbuttonDeleteIconElement.setAttribute('alt', 'delete');
+    playlistbuttonDeleteElement.append(playlistbuttonDeleteIconElement);
+
     playlistInfoContainer.append(playlistTitleElement);
-  
-    playlistInfo.append(playlistInfoImage,playlistInfoContainer);
+    playlistbuttonElement.append(playlistbuttonEditElement,playlistbuttonDeleteElement);
+    playlistInfo.append(playlistInfoImage,playlistInfoContainer,playlistbuttonElement);
 
     element.append(playlistInfo);
     element.append(TracksComponent(inputPlaylist.tracks));
    
     return element;
 }
+function AddTrackPanel(inputTrackPanel){
+    const element = liba.create('div', ['add-track-panel']);
+    element.append(inputTrackPanel)
+}
 
 function TracksComponent(inputTracks) {
-    console.log('hello');
-    const element = document.createElement('ul');
+    
+    const element = liba.create('ul', ['list'])
 
     for (let j = 0; j < inputTracks.length; j++) {
         const track = inputTracks[j];
