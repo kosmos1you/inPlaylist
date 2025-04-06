@@ -86,7 +86,7 @@ function PlaylistMain(){
 function AddPlaylistPanel() {
     const element = liba.create('div',['add-playlist-panel']);
     const PlaylistPanelH1 = liba.create('h1',['title']);
-    PlaylistPanelH1.innerText = 'My playlists 1';
+    PlaylistPanelH1.innerText = 'My playlists';
     
     const PlaylistPanelButton = liba.create('button',['button']);
     PlaylistPanelButton.innerText = 'Add Playlist';
