@@ -31,4 +31,17 @@ const playlist = {
 }
 const playlistTitleElement = document.createElement('h1');
 playlistTitleElement.append(playlist.title);
+document.body.append(playlistTitleElement);
 
+const playlistCoverImageElement = document.createElement('img');
+playlistCoverImageElement.src = playlist.coverImageUrl;
+document.body.append(playlistCoverImageElement);
+
+
+const trackListElement = document.createElement('ul');
+
+document.body.append(trackListElement);
+
+for (let i = 0; i < playlist.tracks.length; i++) {
+    const track = playlist.tracks[i];   
+}

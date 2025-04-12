@@ -149,7 +149,6 @@ function AddTrackPanel(inputTrackPanel){
     const element = liba.create('div', ['add-track-panel']);
     element.append(inputTrackPanel)
 }
-
 function TracksComponent(inputTracks) {
     
     const element = liba.create('ul', ['list'])
