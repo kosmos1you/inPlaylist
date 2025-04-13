@@ -1,198 +1,116 @@
-// util
-const liba = {
-    create(tagName, classes = []) {
-        const element = document.createElement(tagName)
-        classes.forEach(c => {
-            element.classList.add(c)
-        })
-        return element;
-    }
-}
+
 // DATA
-const playlists = [
+const playLists = [
     {
         id: 1,
-        title: 'Hip-Hop Hits',
-        coverImage:'img/cardImage/image1.jpeg',
+        title: "Hip Hop Hits",
+        coverImageUrl: "img/cardImage/image1.jpeg",
         tracks: [
             {
-                artist: 'Eminem',
-                title: 'Rap Cod',
+                artist:'Eminem',
+                title: ' Rap God',
                 isHot: true,
                 imageSource: '/img/cardImage/trackList/track1.jpeg',
-                track: 'audio/Eminem - Rap God.mp3',
+                link: '/audio/Eminem - Rap God.mp3'
             },
             {
-                artist: '50 cent',
-                title: 'In da Club',
+                artist:'50 cent ',
+                title: ' In da Club',
                 isHot: false,
                 imageSource: '/img/cardImage/trackList/track2.jpeg',
-                track: 'audio/50cent - In da club.mp3',
+                link: '/audio/50cent - In da club.mp3'
             },
         ]
     },
     {
         id: 2,
-        title: 'Rap Hits 1990s',
-        coverImage:'img/cardImage/image2.jpeg',
+        title: "Pop Hits 1990s",
+        coverImageUrl: "img/cardImage/image2.jpeg",
         tracks: [
             {
-                artist: 'Public Enemy',
-                title: 'Fight the Power',
+                artist:'Public Enemy',
+                title: ' Fight the Power',
                 isHot: true,
                 imageSource: '/img/cardImage/trackList/track3.jpeg',
-                track: 'audio/50cent - In da club.mp3',
+                link: '/audio/Public Enemy - Fight The Power.mp3'
             },
         ]
     }
 ]
+
 // RENDER
 const root = document.getElementById('root');
-root.append(PlaylistsWrapper());
 
-// components
-function PlaylistsWrapper(){
-    const classes = ['App']
-    const element = liba.create('div', classes);
-   // PlaylistsWrapper.append(PlaylistsHeader());
-    element.append(PlaylistsHeader(),PlaylistMain());
-    return element;
-};
-function PlaylistsHeader(){
-    const element = liba.create('header');
-    element.append(PlaylistsHeaderContainer());
-    return element;
-}
-function PlaylistsHeaderContainer(){
-    const classes = ['header-container'];
-    const element = liba.create('div',classes);
+// Создаем цикл с плейлистами 
+for (let i = 0; i < playLists.length; i++) {
+    const playList = playLists[i];
+    // создаем div 
+    const playListElement = document.createElement('div');
+    // создаем h2 
+    const playListTitleElement = document.createElement('h2');
+    //  берем название плейлистов и вставляем  в h2 
+    playListTitleElement.append(playList.title);
+    //  добавляем h2 с элементами в div 
+    playListElement.append(playListTitleElement);
 
-    const PlaylistsHeaderImage = document.createElement('img');
-    PlaylistsHeaderImage.src = 'img/logo/logo.svg';
-    PlaylistsHeaderImage.setAttribute('alt', 'logo');
-    const headerName = liba.create('div',['logo-name']);
-    headerName.innerText = 'InPlayer';
 
     
-    element.append(PlaylistsHeaderImage,headerName);
+    root.append(playListElement);
+    //  добавляем ul в div 
+    playListElement.append(TracksComponent(playList.tracks));
+}
+
+
+// Создаем функцию TrackElementComponent  
+function  TrackElementComponent(inputTrack) {
+    const element = document.createElement('li');
+    // Получение названия превью, audio и название трека 
+    element.append(
+        TrackImageComponent(inputTrack.imageSource), // Добавляем img
+        TrackTitleComponent(inputTrack),  // Добавляем название
+        TrackLinkComponent (inputTrack) // Добавляем audio
+    );
+    // Получение  const element = document.createElement('li');
     return element;
 }
-function PlaylistMain(){
-    const element = liba.create('main');
-    element.append(AddPlaylistPanel(),PlaylistsComponent(playlists));
-    return element;
-
-}
-function AddPlaylistPanel() {
-    const element = liba.create('div',['add-playlist-panel']);
-    const PlaylistPanelH1 = liba.create('h1',['title']);
-    PlaylistPanelH1.innerText = 'My playlists';
-    
-    const PlaylistPanelButton = liba.create('button',['button']);
-    PlaylistPanelButton.innerText = 'Add Playlist';
-    element.append(PlaylistPanelH1,PlaylistPanelButton);
+// Создаем функцию TrackImageComponent 
+function TrackImageComponent(inputImageSource){
+    // создаем img 
+    const element = document.createElement('img');
+    // присваиваем путь img 
+    element.src = inputImageSource;
+    // Получение  const element = document.createElement('img');
     return element;
 }
-function PlaylistsComponent(inputPlaylists) {
-   
-    const element = liba.create('div',['playlists']);
-    
-    for (let i = 0; i < inputPlaylists.length; i++) {
-        const playlist = inputPlaylists[i];
-        element.append(PlaylistComponent(playlist))
-    }
-    return element;
-    
+// Создаем функцию TrackTitleComponent 
+function TrackTitleComponent(inputTrack){
+    // получаем артиста и название трека 
+    return inputTrack.artist + ' - ' + inputTrack.title;
 }
-function PlaylistComponent(inputPlaylist) {
-    const classes = ['playlist']
-    if (inputPlaylist.isActive) {
-        classes.push('active')
-    }
-    const element = liba.create('div', classes);
-    // todo: split into PlaylistTitleComponent
-    const playlistInfo = liba.create('div', ['playlist-info']);
-
-    const playlistInfoImage = liba.create('img', ['playlist-cover-image']);
-    playlistInfoImage.src = inputPlaylist.coverImage
-    playlistInfoImage.setAttribute('alt', inputPlaylist.title);
-    
-    const playlistInfoContainer = liba.create('div')
-    const playlistTitleElement = liba.create('h2', ['title']);
-    //const playlistCountElement = liba.create('div', ['buttons-container']);
-
-    const playlistbuttonElement = liba.create('div', ['buttons-container']);
-    const playlistbuttonEditElement = liba.create('button');
-    const playlistbuttonDeleteElement = liba.create('button');
-    playlistTitleElement.append(inputPlaylist.title);
-
-    const playlistbuttonEditIconElement = liba.create('img', ['button-icon']);
-    playlistbuttonEditIconElement.src = 'img/icons/edit.svg';
-    playlistbuttonEditIconElement.setAttribute('alt', 'edit');
-    playlistbuttonEditElement.append(playlistbuttonEditIconElement);
-
-    const playlistbuttonDeleteIconElement = liba.create('img', ['button-icon']);
-    playlistbuttonDeleteIconElement.src = 'img/icons/basket.svg';
-    playlistbuttonDeleteIconElement.setAttribute('alt', 'delete');
-    playlistbuttonDeleteElement.append(playlistbuttonDeleteIconElement);
-
-    playlistInfoContainer.append(playlistTitleElement);
-    playlistbuttonElement.append(playlistbuttonEditElement,playlistbuttonDeleteElement);
-    playlistInfo.append(playlistInfoImage,playlistInfoContainer,playlistbuttonElement);
-
-    element.append(playlistInfo);
-    element.append(TracksComponent(inputPlaylist.tracks));
-   
+// Создаем функцию TrackLinkComponent 
+function TrackLinkComponent (inputTrackLink){
+    // Cоздаем audio 
+    const element = document.createElement('audio');
+    // Добавляем атрибут controls к  audio  (без него audio будет скрыт)
+    element.setAttribute('controls', '');
+    // Присваиваем путь audio 
+    element.src = inputTrackLink.link;
+    //  Получение  const element = document.createElement('audio');
     return element;
 }
-function AddTrackPanel(inputTrackPanel){
-    const element = liba.create('div', ['add-track-panel']);
-    element.append(inputTrackPanel)
-}
-function TracksComponent(inputTracks) {
-    
-    const element = liba.create('ul', ['list'])
+// Создаем функцию TracksComponent 
+function TracksComponent(inputTracks){
+    // создаем ul 
+    const element = document.createElement('ul');
 
+    // Получение  треков каждого плейлиста 
     for (let j = 0; j < inputTracks.length; j++) {
         const track = inputTracks[j];
-
-        const trackElement = TrackComponent(track);
+        // Cоздаем переменную trackElement и присваеваем ей функцию TrackElementComponent()  
+        const trackElement = TrackElementComponent(track);
+        //  добавляем li с элементами в ul 
         element.append(trackElement);
+
     }
-
-    return element
-}
-function TrackComponent(inputTrack) {
-    // create
-    const element = document.createElement('li');
-       
-    // add data
-    element.append(
-        TrackImageComponent(inputTrack.imageSource),
-        TrackAudioComponent(inputTrack.track),
-        TrackTitleComponent(inputTrack)
-    )
-
-    // return
     return element;
 }
-function TrackImageComponent(inputImageSource) {
-    const element = document.createElement('img');
-    element.src = inputImageSource;
-    return element;
-}
-function TrackAudioComponent(inputAudioElement) {
-    const element = document.createElement('audio');
-    element.src = inputAudioElement;
-    element.setAttribute('controls', ' ');
-    return element;
-}
-function TrackTitleComponent(inputTrack) {
-    return `${inputTrack.isHot ? "🔥" : ""}${inputTrack.artist} - ${inputTrack.title}`;
-}
-
-
-
-
-
-
