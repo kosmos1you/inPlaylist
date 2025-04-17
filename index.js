@@ -44,23 +44,33 @@ const root = document.getElementById('root');
 // Создаем цикл с плейлистами 
 for (let i = 0; i < playLists.length; i++) {
     const playList = playLists[i];
-    // создаем div 
-    const playListElement = document.createElement('div');
-    // создаем h2 
-    const playListTitleElement = document.createElement('h2');
-    //  берем название плейлистов и вставляем  в h2 
-    playListTitleElement.append(playList.title);
-    //  добавляем h2 с элементами в div 
-    playListElement.append(playListTitleElement);
+    // // создаем div 
+    // const playListElement = document.createElement('div');
+    // // создаем h2 
+    // const playListTitleElement = document.createElement('h2');
+    // //  берем название плейлистов и вставляем  в h2 
+    // playListTitleElement.append(playList.title);
+    // //  добавляем h2 с элементами в div 
+    // playListElement.append(playListTitleElement);
 
 
     
     root.append(playListElement);
     //  добавляем ul в div 
-    playListElement.append(TracksComponent(playList.tracks));
+    playListElement.append(PlayListComponent(playList));
 }
 
-
+function PlayListComponent(inputPlayList){
+    // создаем div 
+    const element = document.createElement('div');
+    // создаем h2 
+    const playListTitleElement = document.createElement('h2');
+    //  берем название плейлистов и вставляем  в h2 
+    playListTitleElement.append(inputPlayList.title);
+    //  добавляем h2 с элементами в div 
+    element.append(playListTitleElement);
+    return element;
+}
 // Создаем функцию TrackElementComponent  
 function  TrackElementComponent(inputTrack) {
     const element = document.createElement('li');
