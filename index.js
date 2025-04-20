@@ -40,26 +40,50 @@ const playLists = [
 
 // RENDER
 const root = document.getElementById('root');
+const PlayListsElement = PlayListsComponent(playLists);
+root.append(PlayListsElement);
 
-// Создаем цикл с плейлистами 
-for (let i = 0; i < playLists.length; i++) {
-    const playList = playLists[i];
+// Создаем функцию layListsComponent
+
+function PlayListsComponent(inputPlayLists){
+    const element = document.createElement('div');
+    // Создаем цикл с плейлистами 
+    for (let i = 0; i < inputPlayLists.length; i++) {
+        const playList = inputPlayLists[i];
+        //  добавляем ul в div, вызываем  playListComponent ( отрисовка треков )
+        element.append(playListComponent(playList));
+    }
+return element;
+}
+
+// Создаем функцию playListComponent  ( отрисовка треков )
+function playListComponent(inputPlayList){
     // создаем div 
-    const playListElement = document.createElement('div');
+    const element = document.createElement('div');
     // создаем h2 
     const playListTitleElement = document.createElement('h2');
     //  берем название плейлистов и вставляем  в h2 
-    playListTitleElement.append(playList.title);
+    playListTitleElement.append(inputPlayList.title);
     //  добавляем h2 с элементами в div 
-    playListElement.append(playListTitleElement);
+    element.append(playListTitleElement);
+    element.append(TracksComponent(inputPlayList.tracks));
+    return element;
 
-
-    
-    root.append(playListElement);
-    //  добавляем ul в div 
-    playListElement.append(TracksComponent(playList.tracks));
 }
-
+// Создаем функцию TracksComponent 
+function TracksComponent(inputTracks){
+    // создаем ul 
+    const element = document.createElement('ul');
+    // Получение  треков каждого плейлиста 
+    for (let j = 0; j < inputTracks.length; j++) {
+        const track = inputTracks[j];
+        // Cоздаем переменную trackElement и присваеваем ей функцию TrackElementComponent()  
+        const trackElement = TrackElementComponent(track);
+        //  добавляем li с элементами в ul 
+        element.append(trackElement);
+    }
+    return element;
+}
 
 // Создаем функцию TrackElementComponent  
 function  TrackElementComponent(inputTrack) {
@@ -84,8 +108,8 @@ function TrackImageComponent(inputImageSource){
 }
 // Создаем функцию TrackTitleComponent 
 function TrackTitleComponent(inputTrack){
-    // получаем артиста и название трека 
-    return inputTrack.artist + ' - ' + inputTrack.title;
+    // получаем артиста и название трека (template string)
+    return (inputTrack.isHot ? '🔥' : '' )+ `${inputTrack.artist} - ${inputTrack.title}`;
 }
 // Создаем функцию TrackLinkComponent 
 function TrackLinkComponent (inputTrackLink){
@@ -96,21 +120,5 @@ function TrackLinkComponent (inputTrackLink){
     // Присваиваем путь audio 
     element.src = inputTrackLink.link;
     //  Получение  const element = document.createElement('audio');
-    return element;
-}
-// Создаем функцию TracksComponent 
-function TracksComponent(inputTracks){
-    // создаем ul 
-    const element = document.createElement('ul');
-
-    // Получение  треков каждого плейлиста 
-    for (let j = 0; j < inputTracks.length; j++) {
-        const track = inputTracks[j];
-        // Cоздаем переменную trackElement и присваеваем ей функцию TrackElementComponent()  
-        const trackElement = TrackElementComponent(track);
-        //  добавляем li с элементами в ul 
-        element.append(trackElement);
-
-    }
     return element;
 }
