@@ -1,4 +1,18 @@
 
+// util
+// создание обьекта с методом create , create - функция с параметрами  tagName, classes , далее создаем  element с tagName 
+// classes = [] - пустой массив в котором будут классы 
+// classes forEach - добавляем  классы из массива 
+const liba = {
+    create(tagName, classes = []){
+        const element = document.createElement(tagName);
+        classes.forEach(classAdd => {
+            element.classList.add(classAdd);
+        });
+        return element;
+    }
+};
+
 // DATA
 const playLists = [
     {
@@ -43,10 +57,9 @@ const root = document.getElementById('root');
 const PlayListsElement = PlayListsComponent(playLists);
 root.append(PlayListsElement);
 
-// Создаем функцию layListsComponent
-
+// Создаем функцию PlayListsComponent
 function PlayListsComponent(inputPlayLists){
-    const element = document.createElement('div');
+    const element = liba.create('div', ['playlists']);
     // Создаем цикл с плейлистами 
     for (let i = 0; i < inputPlayLists.length; i++) {
         const playList = inputPlayLists[i];
