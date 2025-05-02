@@ -1,3 +1,4 @@
+import { playLists } from "./data.js";
 
 // util
 // создание обьекта с методом create , create - функция с параметрами  tagName, classes , далее создаем  element с tagName 
@@ -13,50 +14,12 @@ const liba = {
     }
 };
 
-// DATA
-const playLists = [
-    {
-        id: 1,
-        title: "Hip Hop Hits",
-        coverImageUrl: "img/cardImage/image1.jpeg",
-        tracks: [
-            {
-                artist:'Eminem',
-                title: ' Rap God',
-                isHot: true,
-                imageSource: '/img/cardImage/trackList/track1.jpeg',
-                link: '/audio/Eminem - Rap God.mp3'
-            },
-            {
-                artist:'50 cent ',
-                title: ' In da Club',
-                isHot: false,
-                imageSource: '/img/cardImage/trackList/track2.jpeg',
-                link: '/audio/50cent - In da club.mp3'
-            },
-        ]
-    },
-    {
-        id: 2,
-        title: "Pop Hits 1990s",
-        coverImageUrl: "img/cardImage/image2.jpeg",
-        tracks: [
-            {
-                artist:'Public Enemy',
-                title: ' Fight the Power',
-                isHot: true,
-                imageSource: '/img/cardImage/trackList/track3.jpeg',
-                link: '/audio/Public Enemy - Fight The Power.mp3'
-            },
-        ]
-    }
-]
+
 
 // RENDER
 const root = document.getElementById('root');
 const PlayListsElement = PlayListsComponent(playLists);
 root.append(PlayListsElement);
-
 // Создаем функцию PlayListsComponent
 function PlayListsComponent(inputPlayLists){
     const element = liba.create('div', ['playlists']);
@@ -68,7 +31,6 @@ function PlayListsComponent(inputPlayLists){
     }
 return element;
 }
-
 // Создаем функцию playListComponent  ( отрисовка треков )
 function playListComponent(inputPlayList){
     // создаем div 
@@ -97,7 +59,6 @@ function TracksComponent(inputTracks){
     }
     return element;
 }
-
 // Создаем функцию TrackElementComponent  
 function  TrackElementComponent(inputTrack) {
     const element = document.createElement('li');
