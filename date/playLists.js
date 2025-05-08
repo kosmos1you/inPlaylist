@@ -1,5 +1,5 @@
 // DATA
-export const playLists = [
+export let playLists = [
     {
         id: 1,
         title: "Hip Hop Hits",
@@ -36,3 +36,20 @@ export const playLists = [
         ]
     }
 ];
+const observers = [];
+
+export const deletePlaylist = (id) => {
+    playLists = playLists.filter(p => p.id !== id);
+    observers.forEach((observer) => observer());
+};
+
+
+
+export const subscribe = (observer) => {
+    observers.push(observer);
+}
+
+
+export const unsubscribe = (observer) => {
+    observers = observers.filter(o => o !== observer);
+}

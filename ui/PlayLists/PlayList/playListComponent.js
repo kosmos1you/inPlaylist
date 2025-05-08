@@ -1,3 +1,5 @@
+import { deletePlaylist } from "../../../date/playLists.js";
+import { liba } from "../../Shared/liba.js";
 import { TracksComponent } from "./Tracks/TracksComponent.js";
 
 // Создаем функцию playListComponent  ( отрисовка треков )
@@ -9,7 +11,13 @@ export function playListComponent(inputPlayList) {
     //  берем название плейлистов и вставляем  в h2 
     playListTitleElement.append(inputPlayList.title);
     //  добавляем h2 с элементами в div 
-    element.append(playListTitleElement);
+
+    const deliteButtomElement = liba.create('buttom');
+    deliteButtomElement.append('❌');
+    deliteButtomElement.addEventListener('click', () => {
+        deletePlaylist(inputPlayList.id);
+    });
+    element.append(deliteButtomElement,playListTitleElement);
     element.append(TracksComponent(inputPlayList.tracks));
     return element;
 
