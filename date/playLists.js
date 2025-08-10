@@ -10,28 +10,28 @@ export let playLists = [
                 title: ' Rap God',
                 isHot: true,
                 imageSource: 'img/cardImage/trackList/track1.jpeg',
-                link: '/audio/Eminem - Rap God.mp3'
+                link: 'audio/Eminem - Rap God.mp3'
             },
             {
                 artist: 'Eminem 2',
                 title: ' Rap God 2',
                 isHot: true,
                 imageSource: 'img/cardImage/trackList/track1.jpeg',
-                link: '/audio/Eminem - Rap God.mp3'
+                link: 'audio/Eminem - Rap God.mp3'
             },
             {
                 artist: '50 cent ',
                 title: ' In da Club',
                 isHot: false,
                 imageSource: 'img/cardImage/trackList/track2.jpeg',
-                link: '/audio/50cent - In da club.mp3'
+                link: 'audio/50cent - In da club.mp3'
             },
             {
                 artist: '50 cent 2 ',
                 title: ' In da Club 2',
                 isHot: false,
                 imageSource: 'img/cardImage/trackList/track2.jpeg',
-                link: '/audio/50cent - In da club.mp3'
+                link: 'audio/50cent - In da club.mp3'
             },
         ]
     },
@@ -45,14 +45,14 @@ export let playLists = [
                 title: ' Fight the Power',
                 isHot: true,
                 imageSource: 'img/cardImage/trackList/track3.jpeg',
-                link: '/audio/Public Enemy - Fight The Power.mp3'
+                link: 'audio/Public Enemy - Fight The Power.mp3'
             },
             {
                 artist: 'Public Enemy 2',
                 title: ' Fight the Power 2',
                 isHot: true,
                 imageSource: 'img/cardImage/trackList/track3.jpeg',
-                link: '/audio/Public Enemy - Fight The Power.mp3'
+                link: 'audio/Public Enemy - Fight The Power.mp3'
             },
         ]
     }
